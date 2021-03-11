@@ -21,11 +21,12 @@ namespace LocalAzureKeyVaultSpike.AcceptanceTests
         public void ShouldBeAbleToCreateAKeyToEncryptAndDecryptData()
         {
             const string plaintextValue = "super-secret-stuff";
-            var result = _keyClient.CreateKey("foo", KeyType.Rsa, new CreateKeyOptions
+            var result = _keyClient.CreateRsaKey(new CreateRsaKeyOptions("foo-rsa")
             {
                 Enabled = true,
                 ExpiresOn = DateTimeOffset.UtcNow.AddDays(1),
                 NotBefore = DateTimeOffset.UtcNow,
+                KeySize = 2048,
                 KeyOperations = {KeyOperation.Decrypt, KeyOperation.Encrypt},
                 Tags =
                 {
