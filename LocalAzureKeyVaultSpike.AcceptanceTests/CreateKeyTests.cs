@@ -10,7 +10,7 @@ namespace LocalAzureKeyVaultSpike.AcceptanceTests
     public class CreateKeyTests
     {
         private readonly KeyClient _keyClient;
-        private readonly UTF8Encoding _encoder = new UTF8Encoding();
+        private readonly UTF8Encoding _encoder = new();
 
         public CreateKeyTests()
         {

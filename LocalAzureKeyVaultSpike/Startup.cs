@@ -14,14 +14,6 @@ namespace LocalAzureKeyVaultSpike
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
@@ -29,6 +21,7 @@ namespace LocalAzureKeyVaultSpike
                 {
                     o.JsonSerializerOptions.IgnoreNullValues = true;
                 });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "LocalAzureKeyVaultSpike", Version = "v1"});
@@ -43,11 +36,6 @@ namespace LocalAzureKeyVaultSpike
                 })
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, x =>
                 {
-                    // x.Authority = "https://localhost:5001/";
-                    // x.RequireHttpsMetadata = !environment.IsAcceptance();
-                    // x.SaveToken = true;
-
-
                     x.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidIssuer = "https://localhost:5001/",
@@ -57,12 +45,7 @@ namespace LocalAzureKeyVaultSpike
                         RequireSignedTokens = false,
                         ValidateIssuerSigningKey = false,
                         TryAllIssuerSigningKeys = false,
-                        SignatureValidator = delegate(string token, TokenValidationParameters parameters)
-                        {
-                            var jwt = new JwtSecurityToken(token);
-
-                            return jwt;
-                        },
+                        SignatureValidator = (token, _) => new JwtSecurityToken(token)
                     };
 
                     x.Events = new JwtBearerEvents
@@ -76,7 +59,6 @@ namespace LocalAzureKeyVaultSpike
                 });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
