@@ -55,6 +55,7 @@ TestResults/
 # OS generated files #
 ######################
 .DS_Store?
+.DS_Store
 ehthumbs.db
 Icon?
 Thumbs.db
@@ -87,6 +88,7 @@ out/
 *.txt
 
 keys/
+!AzureKeyVaultEmulator/Keys
 publish/
 sftp/
 newrelic/
@@ -94,3 +96,4 @@ newrelic/
 # Fake GraphQL directives #
 ###########################
 _not-imported-dev.graphql
+local-certs/local*
