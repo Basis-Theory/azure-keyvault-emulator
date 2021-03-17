@@ -1,0 +1,25 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Trust Certificate
+        run: |
+          sudo cp -r ./local-certs/. /usr/local/share/ca-certificates/.
+          sudo update-ca-certificates
+
+      - name: Verify
+        run: make verify

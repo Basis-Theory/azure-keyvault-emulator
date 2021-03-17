@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  azure-key-vault-emulator:
+    container_name: azure-key-vault-emulator
+    image: azure-key-vault-emulator:latest
+    build:
+      context: .
+    ports:
+      - 5001:5001
+      - 5000:5000
+    volumes:
+      - $PWD/local-certs:/https
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:5001;http://+:5000
+      - ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/https/azure-key-vault-emulator.key
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/azure-key-vault-emulator.crt
