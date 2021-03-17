@@ -20,7 +20,9 @@ jobs:
         run: |
           dotnet dev-certs https --clean
           dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.pfx -p password
-          ls ./local-certs
+          dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.crt -np --format pem
+          cp ./local-certs/azure-key-vault-emulator.crt /usr/local/share/ca-certificates/azure-key-vault-emulator.crt
+          update-ca-certificates
 
       - name: Verify
         run: make verify
