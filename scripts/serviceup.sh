@@ -24,5 +24,6 @@ do
     fi
 done
 docker-compose logs azure-key-vault-emulator
+curl -v https://localhost:5001/
 echo 'Health check did not pass within timeout'
 exit 1
