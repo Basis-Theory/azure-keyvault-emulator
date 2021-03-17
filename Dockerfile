@@ -8,8 +8,8 @@ RUN for file in $(ls *.csproj); do mkdir -p ./${file%.*}/ && mv $file ./${file%.
 RUN dotnet restore
 
 COPY . .
-RUN dotnet build LocalAzureKeyVaultSpike.sln --no-restore -c Release
-RUN dotnet publish LocalAzureKeyVaultSpike/LocalAzureKeyVaultSpike.csproj -c Release -o publish --no-restore --no-build
+RUN dotnet build AzureKeyVaultEmulator.sln --no-restore -c Release
+RUN dotnet publish AzureKeyVaultEmulator/AzureKeyVaultEmulator.csproj -c Release -o publish --no-restore --no-build
 
 ########################################
 
@@ -22,4 +22,4 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 COPY --from=builder /app/publish .
 
-ENTRYPOINT ["dotnet", "LocalAzureKeyVaultSpike.dll"]
+ENTRYPOINT ["dotnet", "AzureKeyVaultEmulator.dll"]

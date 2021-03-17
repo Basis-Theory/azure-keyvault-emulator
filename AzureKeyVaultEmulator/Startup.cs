@@ -23,7 +23,7 @@ namespace AzureKeyVaultEmulator
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "LocalAzureKeyVaultSpike", Version = "v1"});
+                c.SwaggerDoc("v1", new OpenApiInfo {Title = "Azure KeyVault Emulator", Version = "v1"});
             });
 
             services.AddScoped<IKeyVaultKeyService, KeyVaultKeyService>();
@@ -64,7 +64,7 @@ namespace AzureKeyVaultEmulator
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LocalAzureKeyVaultSpike v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Azure KeyVault Emulator v1"));
             }
 
             app.UseHttpsRedirection();

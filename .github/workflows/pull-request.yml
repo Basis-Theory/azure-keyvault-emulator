@@ -1,0 +1,25 @@
+name: Pull Request
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+
+      - name: Create Certificate
+        run: |
+          dotnet dev-certs https --clean
+          dotnet dev-certs https -ep local-certs/azure-key-vault-emulator.pfx -p password
+
+      - name: Verify
+        run: make verify
