@@ -19,9 +19,8 @@ jobs:
       - name: Create Certificate
         run: |
           dotnet dev-certs https --clean
-          dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.pfx -p password
-          dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.crt -np --format pem
           dotnet dev-certs https --trust
+          dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.crt -np --format pem
           sudo cp ./local-certs/azure-key-vault-emulator.crt /usr/local/share/ca-certificates/azure-key-vault-emulator.crt
           sudo update-ca-certificates
 
