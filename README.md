@@ -52,7 +52,7 @@ services:
   ...
     azure-key-vault-emulator:
     container_name: azure-key-vault-emulator
-    image: # TODO after publishing image
+    image: ghcr.io/basis-theory/azure-key-vault-emulator:latest
     ports:
       - 5001:5001
       - 5000:5000
