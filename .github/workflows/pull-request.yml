@@ -16,11 +16,8 @@ jobs:
         with:
           dotnet-version: 5.0.x
 
-      - name: Create Certificate
+      - name: Trust Certificate
         run: |
-          dotnet dev-certs https --clean
-          dotnet dev-certs https --trust
-          dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.crt -np --format pem
           sudo cp -r ./local-certs/. /usr/local/share/ca-certificates/.
           sudo update-ca-certificates
 
