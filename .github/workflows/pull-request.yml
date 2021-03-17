@@ -21,6 +21,7 @@ jobs:
           dotnet dev-certs https --clean
           dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.pfx -p password
           dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.crt -np --format pem
+          dotnet dev-certs https --trust
           sudo cp ./local-certs/azure-key-vault-emulator.crt /usr/local/share/ca-certificates/azure-key-vault-emulator.crt
           sudo update-ca-certificates
 
