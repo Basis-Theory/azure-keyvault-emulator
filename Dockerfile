@@ -22,9 +22,4 @@ ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 COPY --from=builder /app/publish .
 
-# TODO Add support for dynamically setting the port
-#ARG PORT
-#ENV PORT=$PORT
-#EXPOSE $PORT
-
 ENTRYPOINT ["dotnet", "LocalAzureKeyVaultSpike.dll"]
