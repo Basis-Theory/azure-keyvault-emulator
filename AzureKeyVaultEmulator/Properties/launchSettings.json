@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "LocalAzureKeyVaultSpike": {
+    "AzureKeyVaultEmulator": {
       "commandName": "Project",
       "dotnetRunMessages": "true",
       "launchBrowser": false,

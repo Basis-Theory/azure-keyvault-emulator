@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text.Json.Serialization;
 using Microsoft.IdentityModel.Tokens;
 
-namespace LocalAzureKeyVaultSpike.Models
+namespace AzureKeyVaultEmulator.Models
 {
     public class JsonWebKeyModel
     {

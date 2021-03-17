@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Concurrent;
-using LocalAzureKeyVaultSpike.Factories;
-using LocalAzureKeyVaultSpike.Models;
+using AzureKeyVaultEmulator.Factories;
+using AzureKeyVaultEmulator.Models;
 using Microsoft.IdentityModel.Tokens;
 
-namespace LocalAzureKeyVaultSpike.Services
+namespace AzureKeyVaultEmulator.Services
 {
     public interface IKeyVaultKeyService
     {

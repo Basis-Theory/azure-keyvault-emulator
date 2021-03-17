@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalAzureKeyVaultSpike", "LocalAzureKeyVaultSpike\LocalAzureKeyVaultSpike.csproj", "{ABAEE20D-4E4B-45CF-ABEA-A02263F63615}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureKeyVaultEmulator", "AzureKeyVaultEmulator\AzureKeyVaultEmulator.csproj", "{ABAEE20D-4E4B-45CF-ABEA-A02263F63615}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LocalAzureKeyVaultSpike.AcceptanceTests", "LocalAzureKeyVaultSpike.AcceptanceTests\LocalAzureKeyVaultSpike.AcceptanceTests.csproj", "{181CD468-BBCA-424A-97A7-5ACC8331FE5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureKeyVaultEmulator.AcceptanceTests", "AzureKeyVaultEmulator.AcceptanceTests\AzureKeyVaultEmulator.AcceptanceTests.csproj", "{181CD468-BBCA-424A-97A7-5ACC8331FE5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

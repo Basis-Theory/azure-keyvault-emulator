@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 
-namespace LocalAzureKeyVaultSpike.AcceptanceTests.Helpers
+namespace AzureKeyVaultEmulator.AcceptanceTests.Helpers
 {
     public class LocalTokenCredential : TokenCredential
     {

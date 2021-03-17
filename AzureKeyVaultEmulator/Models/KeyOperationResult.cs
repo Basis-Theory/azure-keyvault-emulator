@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace LocalAzureKeyVaultSpike.Models
+namespace AzureKeyVaultEmulator.Models
 {
     public class KeyOperationResult
     {

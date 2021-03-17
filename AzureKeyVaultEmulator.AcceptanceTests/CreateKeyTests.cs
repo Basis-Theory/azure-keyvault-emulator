@@ -2,10 +2,10 @@ using System;
 using System.Text;
 using Azure.Security.KeyVault.Keys;
 using Azure.Security.KeyVault.Keys.Cryptography;
-using LocalAzureKeyVaultSpike.AcceptanceTests.Helpers;
+using AzureKeyVaultEmulator.AcceptanceTests.Helpers;
 using Xunit;
 
-namespace LocalAzureKeyVaultSpike.AcceptanceTests
+namespace AzureKeyVaultEmulator.AcceptanceTests
 {
     public class CreateKeyTests
     {

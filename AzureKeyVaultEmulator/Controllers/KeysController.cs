@@ -1,11 +1,11 @@
 using System;
-using LocalAzureKeyVaultSpike.Models;
-using LocalAzureKeyVaultSpike.Services;
+using AzureKeyVaultEmulator.Models;
+using AzureKeyVaultEmulator.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace LocalAzureKeyVaultSpike.Controllers
+namespace AzureKeyVaultEmulator.Controllers
 {
     [ApiController]
     [Route("keys")]
