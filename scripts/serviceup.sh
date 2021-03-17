@@ -23,6 +23,6 @@ do
 	    i=$(( i+3000 ))	 # increments $n
     fi
 done
-
+docker-compose logs azure-key-vault-emulator
 echo 'Health check did not pass within timeout'
 exit 1
