@@ -9,7 +9,6 @@ dotnet restore
 
 dotnet build AzureKeyVaultEmulator.sln --no-restore -c Release
 
-
 result=$?
 
 cd "$current_directory"

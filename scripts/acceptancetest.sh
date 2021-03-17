@@ -13,6 +13,4 @@ result=$?
 
 cd "$current_directory"
 
-docker-compose logs azure-key-vault-emulator
-
 exit $result
