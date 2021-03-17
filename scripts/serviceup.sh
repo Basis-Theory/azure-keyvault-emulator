@@ -15,7 +15,6 @@ do
     if [ $status == "404" ]
     then
         echo -e "${GREEN}✓${NOCOLOR} KeyVault Emulator is ready"
-        curl -v https://localhost:5001/
         exit 0
     else
         echo -e "❌ KeyVault Emulator is not ready"

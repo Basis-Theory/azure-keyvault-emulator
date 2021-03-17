@@ -21,7 +21,7 @@ jobs:
           dotnet dev-certs https --clean
           dotnet dev-certs https --trust
           dotnet dev-certs https -ep ./local-certs/azure-key-vault-emulator.crt -np --format pem
-          sudo cp ./local-certs/azure-key-vault-emulator.crt /usr/local/share/ca-certificates/azure-key-vault-emulator.crt
+          sudo cp ./local-certs/. /usr/local/share/ca-certificates/.
           sudo update-ca-certificates
 
       - name: Verify
