@@ -14,5 +14,5 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:5001;http://+:5000
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/azure-key-vault-emulator.pfx
-      - ASPNETCORE_Kestrel__Certificates__Default__Password=password
+      - ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/https/azure-key-vault-emulator.key
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/azure-key-vault-emulator.crt
