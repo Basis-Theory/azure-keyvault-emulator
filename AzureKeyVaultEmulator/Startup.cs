@@ -1,9 +1,11 @@
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using AzureKeyVaultEmulator.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
@@ -13,6 +15,15 @@ namespace AzureKeyVaultEmulator
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+        private readonly IHostEnvironment _environment;
+
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
+        {
+            _configuration = configuration;
+            _environment = environment;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers()
@@ -26,7 +37,7 @@ namespace AzureKeyVaultEmulator
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "Azure KeyVault Emulator", Version = "v1"});
             });
 
-            services.AddScoped<IKeyVaultKeyService, KeyVaultKeyService>();
+            services.AddScoped<IKeyVaultKeyService, KeyVaultKeyService>(_ => new KeyVaultKeyService(_configuration.GetValue<string>("KeyVault:Name")));
 
             services.AddAuthentication(x =>
                 {
