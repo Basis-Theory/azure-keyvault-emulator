@@ -18,6 +18,12 @@ namespace AzureKeyVaultEmulator.Services
     public class KeyVaultKeyService : IKeyVaultKeyService
     {
         private static readonly ConcurrentDictionary<string, KeyResponse> Keys = new();
+        private readonly string _keyVaultName;
+
+        public KeyVaultKeyService(string keyVaultName)
+        {
+            _keyVaultName = keyVaultName ?? throw new ArgumentNullException(nameof(keyVaultName));
+        }
 
         public KeyResponse GetKey(string keyName, Guid keyVersion)
         {
@@ -43,7 +49,7 @@ namespace AzureKeyVaultEmulator.Services
             var keyVersion = Guid.NewGuid();
             jsonWebKeyModel.KeyName = keyName;
             jsonWebKeyModel.KeyVersion = keyVersion;
-            jsonWebKeyModel.KeyIdentifier = $"https://localhost:5001/keys/{keyName}/{keyVersion}";
+            jsonWebKeyModel.KeyIdentifier = $"https://{_keyVaultName}:5001/keys/{keyName}/{keyVersion}";
             jsonWebKeyModel.KeyOperations = key.KeyOperations;
 
             var createdKey = new KeyResponse

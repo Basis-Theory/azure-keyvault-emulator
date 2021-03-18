@@ -61,6 +61,7 @@ services:
     environment:
       - ASPNETCORE_URLS=https://+:5001;http://+:5000
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/<emulator-hostname>.pfx
+      - KeyVault__Name=<emulator-hostname>
 ```
 4. Modify the client application's entrypoint to add the self-signed certificate to the truststore. Example using docker-compose.yml to override the entrypoint:
 ```
