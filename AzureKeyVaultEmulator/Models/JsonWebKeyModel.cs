@@ -124,7 +124,7 @@ namespace AzureKeyVaultEmulator.Models
                     return _rsaDecrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
                 }
                 default:
-                    throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Encryption");
+                    throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Decryption");
             }
         }
 
