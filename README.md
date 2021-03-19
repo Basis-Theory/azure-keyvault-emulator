@@ -8,6 +8,9 @@
 - Get Key by version
 - Encrypt
 - Decrypt
+- Supported [Algorithms](https://docs.microsoft.com/en-us/rest/api/keyvault/decrypt/decrypt#jsonwebkeyencryptionalgorithm)
+    - `RSA1_5`
+    - `RSA-OAEP`
 
 
 ### Requirements
