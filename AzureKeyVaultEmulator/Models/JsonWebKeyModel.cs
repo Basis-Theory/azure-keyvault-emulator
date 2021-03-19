@@ -93,18 +93,18 @@ namespace AzureKeyVaultEmulator.Models
             {
                 case EncryptionAlgorithms.RSA1_5:
                 {
-                    return _rsaEncrypt(data.Data, RSAEncryptionPadding.Pkcs1);
+                    return RsaEncrypt(data.Data, RSAEncryptionPadding.Pkcs1);
                 }
                 case EncryptionAlgorithms.RSA_OAEP:
                 {
-                    return _rsaEncrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
+                    return RsaEncrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
                 }
                 default:
                     throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Encryption");
             }
         }
 
-        private byte[] _rsaEncrypt(string plaintext, RSAEncryptionPadding padding)
+        private byte[] RsaEncrypt(string plaintext, RSAEncryptionPadding padding)
         {
             using var rsaAlg = new RSACryptoServiceProvider(_rsaKey.KeySize);
             rsaAlg.ImportParameters(_rsaParameters);
@@ -117,18 +117,18 @@ namespace AzureKeyVaultEmulator.Models
             {
                 case EncryptionAlgorithms.RSA1_5:
                 {
-                    return _rsaDecrypt(data.Data, RSAEncryptionPadding.Pkcs1);
+                    return RsaDecrypt(data.Data, RSAEncryptionPadding.Pkcs1);
                 }
                 case EncryptionAlgorithms.RSA_OAEP:
                 {
-                    return _rsaDecrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
+                    return RsaDecrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
                 }
                 default:
                     throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Decryption");
             }
         }
 
-        private string _rsaDecrypt(string ciphertext, RSAEncryptionPadding padding)
+        private string RsaDecrypt(string ciphertext, RSAEncryptionPadding padding)
         {
             using var rsaAlg = new RSACryptoServiceProvider(_rsaKey.KeySize);
             rsaAlg.ImportParameters(_rsaParameters);
