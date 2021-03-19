@@ -41,16 +41,24 @@ namespace AzureKeyVaultEmulator.AcceptanceTests
             Assert.NotNull(createdKey);
 
             var cryptoClient = new CryptographyClient(createdKey.Id, new LocalTokenCredential());
-            var encryptResult = cryptoClient.Encrypt(EncryptionAlgorithm.Rsa15, _encoder.GetBytes(plaintextValue));
+
+            ValidateEncryptDecrypt(plaintextValue, cryptoClient, EncryptionAlgorithm.Rsa15);
+            ValidateEncryptDecrypt(plaintextValue, cryptoClient, EncryptionAlgorithm.RsaOaep);
+        }
+
+        private void ValidateEncryptDecrypt(string plaintext, CryptographyClient cryptoClient,
+            EncryptionAlgorithm algorithm)
+        {
+            var encryptResult = cryptoClient.Encrypt(algorithm, _encoder.GetBytes(plaintext));
             Assert.NotNull(encryptResult);
             Assert.NotNull(encryptResult.Ciphertext);
 
-            var decryptResult = cryptoClient.Decrypt(EncryptionAlgorithm.Rsa15, encryptResult.Ciphertext);
+            var decryptResult = cryptoClient.Decrypt(algorithm, encryptResult.Ciphertext);
             Assert.NotNull(decryptResult);
             Assert.NotNull(decryptResult.Plaintext);
 
             var actualDecryptedSecret = _encoder.GetString(decryptResult.Plaintext);
-            Assert.Equal(plaintextValue, actualDecryptedSecret);
+            Assert.Equal(plaintext, actualDecryptedSecret);
         }
     }
 }

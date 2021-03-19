@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
+using AzureKeyVaultEmulator.Constants;
 using Microsoft.IdentityModel.Tokens;
 
 namespace AzureKeyVaultEmulator.Models
@@ -88,32 +89,50 @@ namespace AzureKeyVaultEmulator.Models
 
         public byte[] Encrypt(KeyOperationParameters data)
         {
-            switch (KeyType)
+            switch (data.Algorithm)
             {
-                case "RSA":
+                case EncryptionAlgorithms.RSA1_5:
                 {
-                    using var rsaAlg = new RSACryptoServiceProvider(_rsaKey.KeySize);
-                    rsaAlg.ImportParameters(_rsaParameters);
-                    return rsaAlg.Encrypt(Base64UrlEncoder.DecodeBytes(data.Data), false);
+                    return RsaEncrypt(data.Data, RSAEncryptionPadding.Pkcs1);
+                }
+                case EncryptionAlgorithms.RSA_OAEP:
+                {
+                    return RsaEncrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
                 }
                 default:
-                    throw new NotImplementedException($"KeyType {KeyType} does not support Encryption");
+                    throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Encryption");
             }
+        }
+
+        private byte[] RsaEncrypt(string plaintext, RSAEncryptionPadding padding)
+        {
+            using var rsaAlg = new RSACryptoServiceProvider(_rsaKey.KeySize);
+            rsaAlg.ImportParameters(_rsaParameters);
+            return rsaAlg.Encrypt(Base64UrlEncoder.DecodeBytes(plaintext), padding);
         }
 
         public string Decrypt(KeyOperationParameters data)
         {
-            switch (KeyType)
+            switch (data.Algorithm)
             {
-                case "RSA":
+                case EncryptionAlgorithms.RSA1_5:
                 {
-                    using var rsaAlg = new RSACryptoServiceProvider(_rsaKey.KeySize);
-                    rsaAlg.ImportParameters(_rsaParameters);
-                    return Base64UrlEncoder.Encode(rsaAlg.Decrypt(Base64UrlEncoder.DecodeBytes(data.Data), false));
+                    return RsaDecrypt(data.Data, RSAEncryptionPadding.Pkcs1);
+                }
+                case EncryptionAlgorithms.RSA_OAEP:
+                {
+                    return RsaDecrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
                 }
                 default:
-                    throw new NotImplementedException($"KeyType {KeyType} does not support Encryption");
+                    throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Decryption");
             }
+        }
+
+        private string RsaDecrypt(string ciphertext, RSAEncryptionPadding padding)
+        {
+            using var rsaAlg = new RSACryptoServiceProvider(_rsaKey.KeySize);
+            rsaAlg.ImportParameters(_rsaParameters);
+            return Base64UrlEncoder.Encode(rsaAlg.Decrypt(Base64UrlEncoder.DecodeBytes(ciphertext), padding));
         }
     }
 }
