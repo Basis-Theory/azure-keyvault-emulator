@@ -41,7 +41,11 @@ namespace AzureKeyVaultEmulator.Controllers
             [FromRoute] Guid keyVersion,
             [FromQuery(Name = "api-version")] string apiVersion)
         {
-            return Ok(_keyVaultKeyService.GetKey(keyName, keyVersion));
+            var keyResult = _keyVaultKeyService.GetKey(keyName, keyVersion);
+
+            if (keyResult == null) return NotFound();
+
+            return Ok(keyResult);
         }
 
         [HttpGet]
@@ -51,7 +55,11 @@ namespace AzureKeyVaultEmulator.Controllers
         public IActionResult GetKey([FromRoute] string keyName,
             [FromQuery(Name = "api-version")] string apiVersion)
         {
-            return Ok(_keyVaultKeyService.GetKey(keyName));
+            var keyResult = _keyVaultKeyService.GetKey(keyName);
+
+            if (keyResult == null) return NotFound();
+
+            return Ok(keyResult);
         }
 
         [HttpPost]
