@@ -44,6 +44,16 @@ namespace AzureKeyVaultEmulator.Controllers
             return Ok(_keyVaultKeyService.GetKey(keyName, keyVersion));
         }
 
+        [HttpGet]
+        [Route("{keyName}")]
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(KeyResponse), StatusCodes.Status200OK)]
+        public IActionResult GetKey([FromRoute] string keyName,
+            [FromQuery(Name = "api-version")] string apiVersion)
+        {
+            return Ok(_keyVaultKeyService.GetKey(keyName));
+        }
+
         [HttpPost]
         [Route("{keyName}/{keyVersion}/encrypt")]
         [Produces("application/json")]
