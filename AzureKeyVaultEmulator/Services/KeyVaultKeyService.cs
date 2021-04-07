@@ -8,6 +8,7 @@ namespace AzureKeyVaultEmulator.Services
 {
     public interface IKeyVaultKeyService
     {
+        KeyResponse GetKey(string keyName);
         KeyResponse GetKey(string keyName, Guid keyVersion);
         KeyResponse CreateKeyVaultKey(string keyName, CreateKeyModel key);
 
@@ -23,6 +24,13 @@ namespace AzureKeyVaultEmulator.Services
         public KeyVaultKeyService(string keyVaultName)
         {
             _keyVaultName = keyVaultName ?? throw new ArgumentNullException(nameof(keyVaultName));
+        }
+
+        public KeyResponse GetKey(string keyName)
+        {
+            Keys.TryGetValue(GetKeyCacheId(keyName), out var foundKey);
+
+            return foundKey;
         }
 
         public KeyResponse GetKey(string keyName, Guid keyVersion)
@@ -59,6 +67,7 @@ namespace AzureKeyVaultEmulator.Services
                 Tags = key.Tags
             };
 
+            Keys.AddOrUpdate(GetKeyCacheId(keyName), createdKey, (_, _) => createdKey);
             Keys.TryAdd(GetKeyCacheId(keyName, keyVersion), createdKey);
 
             return createdKey;
@@ -92,6 +101,6 @@ namespace AzureKeyVaultEmulator.Services
             };
         }
 
-        private static string GetKeyCacheId(string keyName, Guid keyVersion) => $"{keyName}_{keyVersion.ToString()}";
+        private static string GetKeyCacheId(string keyName, Guid? keyVersion = null) => keyName + (keyVersion == null ? "" : keyVersion.ToString());
     }
 }
