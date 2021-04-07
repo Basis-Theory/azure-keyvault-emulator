@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 using Azure;
 using Azure.Security.KeyVault.Keys;
 using AzureKeyVaultEmulator.AcceptanceTests.Helpers;
@@ -19,10 +20,9 @@ namespace AzureKeyVaultEmulator.AcceptanceTests
         public void ShouldBeAbleToGetLatestKeyVersionByKeyName()
         {
             const string expectedKeyName = "foo-rsa";
-            Response<KeyVaultKey> actualLatestKey;
 
             var key1 = CreateKeyVaultRsaKey(expectedKeyName);
-            actualLatestKey = _keyClient.GetKey(expectedKeyName);
+            var actualLatestKey = _keyClient.GetKey(expectedKeyName);
             Assert.Equal(key1.Value.Id, actualLatestKey.Value.Id);
 
             var key2 = CreateKeyVaultRsaKey(expectedKeyName);
@@ -39,6 +39,43 @@ namespace AzureKeyVaultEmulator.AcceptanceTests
             var actualLatestKey = _keyClient.GetKey(expectedKeyName, expectedKey.Value.Properties.Version);
 
             Assert.Equal(expectedKey.Value.Id, actualLatestKey.Value.Id);
+        }
+
+        [Fact]
+        public void ShouldThrowRequestFailedExceptionWhenKeyNameDoesNotExist()
+        {
+            var keyName = Guid.NewGuid().ToString();
+            var exceptionThrown = false;
+
+            try
+            {
+                _keyClient.GetKey(keyName);
+            }
+            catch (RequestFailedException)
+            {
+                exceptionThrown = true;
+            }
+
+            Assert.True(exceptionThrown);
+        }
+
+        [Fact]
+        public void ShouldThrowRequestFailedExceptionWhenGetKeyByNameAndVersionDoesNotExist()
+        {
+            var keyName = Guid.NewGuid().ToString();
+            var keyVersion = Guid.NewGuid().ToString();
+            var exceptionThrown = false;
+
+            try
+            {
+                _keyClient.GetKey(keyName, keyVersion);
+            }
+            catch (RequestFailedException)
+            {
+                exceptionThrown = true;
+            }
+
+            Assert.True(exceptionThrown);
         }
 
         private Response<KeyVaultKey> CreateKeyVaultRsaKey(string keyName)
