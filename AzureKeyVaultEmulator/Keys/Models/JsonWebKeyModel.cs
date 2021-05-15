@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text.Json.Serialization;
-using AzureKeyVaultEmulator.Constants;
+using AzureKeyVaultEmulator.Keys.Constants;
 using Microsoft.IdentityModel.Tokens;
 
-namespace AzureKeyVaultEmulator.Models
+namespace AzureKeyVaultEmulator.Keys.Models
 {
     public class JsonWebKeyModel
     {
@@ -44,7 +44,7 @@ namespace AzureKeyVaultEmulator.Models
         public string KeyName { get; set; }
 
         [JsonIgnore]
-        public Guid KeyVersion { get; set; }
+        public string KeyVersion { get; set; }
 
         [JsonPropertyName("n")]
         public string N { get; set; }
@@ -89,19 +89,12 @@ namespace AzureKeyVaultEmulator.Models
 
         public byte[] Encrypt(KeyOperationParameters data)
         {
-            switch (data.Algorithm)
+            return data.Algorithm switch
             {
-                case EncryptionAlgorithms.RSA1_5:
-                {
-                    return RsaEncrypt(data.Data, RSAEncryptionPadding.Pkcs1);
-                }
-                case EncryptionAlgorithms.RSA_OAEP:
-                {
-                    return RsaEncrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
-                }
-                default:
-                    throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Encryption");
-            }
+                EncryptionAlgorithms.RSA1_5 => RsaEncrypt(data.Data, RSAEncryptionPadding.Pkcs1),
+                EncryptionAlgorithms.RSA_OAEP => RsaEncrypt(data.Data, RSAEncryptionPadding.OaepSHA1),
+                _ => throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Encryption")
+            };
         }
 
         private byte[] RsaEncrypt(string plaintext, RSAEncryptionPadding padding)
@@ -113,19 +106,12 @@ namespace AzureKeyVaultEmulator.Models
 
         public string Decrypt(KeyOperationParameters data)
         {
-            switch (data.Algorithm)
+            return data.Algorithm switch
             {
-                case EncryptionAlgorithms.RSA1_5:
-                {
-                    return RsaDecrypt(data.Data, RSAEncryptionPadding.Pkcs1);
-                }
-                case EncryptionAlgorithms.RSA_OAEP:
-                {
-                    return RsaDecrypt(data.Data, RSAEncryptionPadding.OaepSHA1);
-                }
-                default:
-                    throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Decryption");
-            }
+                EncryptionAlgorithms.RSA1_5 => RsaDecrypt(data.Data, RSAEncryptionPadding.Pkcs1),
+                EncryptionAlgorithms.RSA_OAEP => RsaDecrypt(data.Data, RSAEncryptionPadding.OaepSHA1),
+                _ => throw new NotImplementedException($"Algorithm '{data.Algorithm}' does not support Decryption")
+            };
         }
 
         private string RsaDecrypt(string ciphertext, RSAEncryptionPadding padding)

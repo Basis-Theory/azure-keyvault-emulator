@@ -10,7 +10,7 @@ timeout=30000
 # continue until $n equals 5
 while [ $i -le $timeout ]
 do
-	status=$(curl -s -o /dev/null -i -w "%{http_code}" https://localhost:5001/)
+	status=$(curl -s -o /dev/null -i -w "%{http_code}" https://localhost:5551/)
 
     if [ $status == "404" ]
     then

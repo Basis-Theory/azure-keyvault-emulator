@@ -1,4 +1,4 @@
-namespace AzureKeyVaultEmulator.Constants
+namespace AzureKeyVaultEmulator.Keys.Constants
 {
     public static class EncryptionAlgorithms
     {

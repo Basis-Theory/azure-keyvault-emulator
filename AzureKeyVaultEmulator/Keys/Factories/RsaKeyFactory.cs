@@ -1,6 +1,6 @@
 using System.Security.Cryptography;
 
-namespace AzureKeyVaultEmulator.Factories
+namespace AzureKeyVaultEmulator.Keys.Factories
 {
     public static class RsaKeyFactory
     {

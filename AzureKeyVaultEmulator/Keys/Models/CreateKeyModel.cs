@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace AzureKeyVaultEmulator.Models
+namespace AzureKeyVaultEmulator.Keys.Models
 {
     public class CreateKeyModel
     {

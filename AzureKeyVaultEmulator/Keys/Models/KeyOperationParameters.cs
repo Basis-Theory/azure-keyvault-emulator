@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace AzureKeyVaultEmulator.Models
+namespace AzureKeyVaultEmulator.Keys.Models
 {
     public class KeyOperationParameters
     {

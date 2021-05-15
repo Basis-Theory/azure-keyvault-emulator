@@ -1,14 +1,13 @@
-using System;
-using AzureKeyVaultEmulator.Models;
-using AzureKeyVaultEmulator.Services;
+using AzureKeyVaultEmulator.Keys.Models;
+using AzureKeyVaultEmulator.Keys.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AzureKeyVaultEmulator.Controllers
+namespace AzureKeyVaultEmulator.Keys.Controllers
 {
     [ApiController]
-    [Route("keys")]
+    [Route("keys/{name}")]
     [Authorize]
     public class KeysController : ControllerBase
     {
@@ -19,29 +18,27 @@ namespace AzureKeyVaultEmulator.Controllers
             _keyVaultKeyService = keyVaultKeyService;
         }
 
-        [HttpPost]
-        [Route("{id}/create")]
+        [HttpPost("create")]
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(typeof(KeyResponse), StatusCodes.Status200OK)]
-        public IActionResult CreateKey([FromRoute] string id,
+        public IActionResult CreateKey([FromRoute] string name,
             [FromQuery(Name = "api-version")] string apiVersion,
             [FromBody] CreateKeyModel requestBody)
         {
-            var createdKey = _keyVaultKeyService.CreateKeyVaultKey(id, requestBody);
+            var createdKey = _keyVaultKeyService.CreateKey(name, requestBody);
 
             return Ok(createdKey);
         }
 
-        [HttpGet]
-        [Route("{keyName}/{keyVersion}")]
+        [HttpGet("{version}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(KeyResponse), StatusCodes.Status200OK)]
-        public IActionResult GetKey([FromRoute] string keyName,
-            [FromRoute] Guid keyVersion,
+        public IActionResult GetKey([FromRoute] string name,
+            [FromRoute] string version,
             [FromQuery(Name = "api-version")] string apiVersion)
         {
-            var keyResult = _keyVaultKeyService.GetKey(keyName, keyVersion);
+            var keyResult = _keyVaultKeyService.Get(name, version);
 
             if (keyResult == null) return NotFound();
 
@@ -49,43 +46,43 @@ namespace AzureKeyVaultEmulator.Controllers
         }
 
         [HttpGet]
-        [Route("{keyName}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(KeyResponse), StatusCodes.Status200OK)]
-        public IActionResult GetKey([FromRoute] string keyName,
+        public IActionResult GetKey(
+            [FromRoute] string name,
             [FromQuery(Name = "api-version")] string apiVersion)
         {
-            var keyResult = _keyVaultKeyService.GetKey(keyName);
+            var keyResult = _keyVaultKeyService.Get(name);
 
             if (keyResult == null) return NotFound();
 
             return Ok(keyResult);
         }
 
-        [HttpPost]
-        [Route("{keyName}/{keyVersion}/encrypt")]
+        [HttpPost("{version}/encrypt")]
         [Produces("application/json")]
         [Consumes("application/json")]
-        public IActionResult Encrypt([FromRoute] string keyName,
-            [FromRoute] Guid keyVersion,
+        public IActionResult Encrypt(
+            [FromRoute] string name,
+            [FromRoute] string version,
             [FromQuery(Name = "api-version")] string apiVersion,
             [FromBody] KeyOperationParameters keyOperationParameters)
         {
-            var result = _keyVaultKeyService.Encrypt(keyName, keyVersion, keyOperationParameters);
+            var result = _keyVaultKeyService.Encrypt(name, version, keyOperationParameters);
 
             return Ok(result);
         }
 
-        [HttpPost]
-        [Route("{keyName}/{keyVersion}/decrypt")]
+        [HttpPost("{version}/decrypt")]
         [Produces("application/json")]
         [Consumes("application/json")]
-        public IActionResult Decrypt([FromRoute] string keyName,
-            [FromRoute] Guid keyVersion,
+        public IActionResult Decrypt(
+            [FromRoute] string name,
+            [FromRoute] string version,
             [FromQuery(Name = "api-version")] string apiVersion,
             [FromBody] KeyOperationParameters keyOperationParameters)
         {
-            var result = _keyVaultKeyService.Decrypt(keyName, keyVersion, keyOperationParameters);
+            var result = _keyVaultKeyService.Decrypt(name, version, keyOperationParameters);
 
             return Ok(result);
         }
