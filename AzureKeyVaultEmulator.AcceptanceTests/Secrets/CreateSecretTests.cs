@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 using System.Threading.Tasks;
 using Azure.Security.KeyVault.Secrets;
 using AzureKeyVaultEmulator.AcceptanceTests.Helpers;
@@ -35,13 +34,19 @@ namespace AzureKeyVaultEmulator.AcceptanceTests.Secrets
             };
 
             var result = await _secretClient.SetSecretAsync(secret);
+            Assert.NotNull(result);
 
-            Assert.Equal(secret.Value, result.Value.Value);
-            Assert.Equal(secret.Properties.Enabled, result.Value.Properties.Enabled);
-            Assert.Equal(secret.Properties.ExpiresOn.Value.ToUnixTimeSeconds(), result.Value.Properties.ExpiresOn.GetValueOrDefault().ToUnixTimeSeconds());
-            Assert.Equal(secret.Properties.NotBefore.Value.ToUnixTimeSeconds(), result.Value.Properties.NotBefore.GetValueOrDefault().ToUnixTimeSeconds());
-            Assert.Equal("local", result.Value.Properties.Tags["environment"]);
-            Assert.Equal("true", result.Value.Properties.Tags["testing"]);
+            KeyVaultSecret createdSecret = result.Value;
+            Assert.NotNull(createdSecret);
+
+            Assert.NotNull(createdSecret.Id);
+            Assert.Equal(secret.Value, createdSecret.Value);
+            Assert.Equal(secret.Properties.Enabled, createdSecret.Properties.Enabled);
+            Assert.Equal(secret.Properties.ExpiresOn.Value.ToUnixTimeSeconds(), createdSecret.Properties.ExpiresOn.GetValueOrDefault().ToUnixTimeSeconds());
+            Assert.Equal(secret.Properties.NotBefore.Value.ToUnixTimeSeconds(), createdSecret.Properties.NotBefore.GetValueOrDefault().ToUnixTimeSeconds());
+            Assert.NotNull(createdSecret.Properties.Version);
+            Assert.Equal("local", createdSecret.Properties.Tags["environment"]);
+            Assert.Equal("true", createdSecret.Properties.Tags["testing"]);
         }
     }
 }

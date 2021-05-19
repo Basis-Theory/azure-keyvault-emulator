@@ -28,6 +28,7 @@ namespace AzureKeyVaultEmulator.AcceptanceTests.Secrets
             Assert.Equal(secret1.Value.Properties.Enabled, actualLatest.Value.Properties.Enabled);
             Assert.Equal(secret1.Value.Properties.NotBefore, actualLatest.Value.Properties.NotBefore);
             Assert.Equal(secret1.Value.Properties.ExpiresOn, actualLatest.Value.Properties.ExpiresOn);
+            Assert.Equal(secret1.Value.Properties.Version, actualLatest.Value.Properties.Version);
 
             var secret2 = await CreateSecret(expectedName);
             actualLatest = await _secretClient.GetSecretAsync(expectedName);
@@ -36,6 +37,7 @@ namespace AzureKeyVaultEmulator.AcceptanceTests.Secrets
             Assert.Equal(secret2.Value.Properties.Enabled, actualLatest.Value.Properties.Enabled);
             Assert.Equal(secret2.Value.Properties.NotBefore, actualLatest.Value.Properties.NotBefore);
             Assert.Equal(secret2.Value.Properties.ExpiresOn, actualLatest.Value.Properties.ExpiresOn);
+            Assert.Equal(secret2.Value.Properties.Version, actualLatest.Value.Properties.Version);
         }
 
         [Fact]
@@ -46,6 +48,7 @@ namespace AzureKeyVaultEmulator.AcceptanceTests.Secrets
 
             var actualLatestSecret = await _secretClient.GetSecretAsync(expectedName, expectedSecret.Value.Properties.Version);
             Assert.Equal(expectedSecret.Value.Id, actualLatestSecret.Value.Id);
+            Assert.Equal(expectedSecret.Value.Properties.Version, actualLatestSecret.Value.Properties.Version);
         }
 
         [Fact]
@@ -58,6 +61,7 @@ namespace AzureKeyVaultEmulator.AcceptanceTests.Secrets
 
             var actualLatest = await _secretClient.GetSecretAsync(expectedName, expected.Value.Properties.Version);
             Assert.Equal(expected.Value.Id, actualLatest.Value.Id);
+            Assert.Equal(expected.Value.Properties.Version, actualLatest.Value.Properties.Version);
         }
 
         [Fact]
