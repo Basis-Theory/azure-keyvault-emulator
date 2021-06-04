@@ -41,13 +41,17 @@ openssl req \
   echo '[san]'; \
   echo 'subjectAltName=DNS.1:localhost,DNS.2:<emulator-hostname>')
 ```
-2. Export a `.pks` formatted key using the public/private keypair generated in the previous step:
+1. Export a `.pks` formatted key using the public/private keypair generated in the previous step:
 ```
 openssl pkcs12 -export -out <emulator-hostname>.pfx \
 -inkey <emulator-hostname>.key \
 -in <emulator-hostname>.crt
 ```
-3. Add a service to docker-compose.yml for Azure KeyVaultEmulator:
+1. Trust the certificate in the login keychain
+```
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <emulator-hostname>.crt
+```
+1. Add a service to docker-compose.yml for Azure KeyVaultEmulator:
 ```
 version: '3.7'
 
@@ -66,7 +70,7 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/<emulator-hostname>.pfx
       - KeyVault__Name=<emulator-hostname>
 ```
-4. Modify the client application's entrypoint to add the self-signed certificate to the truststore. Example using docker-compose.yml to override the entrypoint:
+1. Modify the client application's entrypoint to add the self-signed certificate to the truststore. Example using docker-compose.yml to override the entrypoint:
 ```
 version: '3.7'
 
