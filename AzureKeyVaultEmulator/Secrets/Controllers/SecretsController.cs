@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using AzureKeyVaultEmulator.Keys.Models;
 using AzureKeyVaultEmulator.Secrets.Models;
 using AzureKeyVaultEmulator.Secrets.Services;
@@ -24,7 +25,7 @@ namespace AzureKeyVaultEmulator.Secrets.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(typeof(KeyResponse), StatusCodes.Status200OK)]
         public IActionResult SetSecret(
-            [FromRoute] string name,
+            [RegularExpression("[a-zA-Z0-9-]+")][FromRoute] string name,
             [FromQuery(Name = "api-version")] string apiVersion,
             [FromBody] SetSecretModel requestBody)
         {
