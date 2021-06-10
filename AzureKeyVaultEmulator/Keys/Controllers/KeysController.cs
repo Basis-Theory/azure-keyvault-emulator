@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using AzureKeyVaultEmulator.Keys.Models;
 using AzureKeyVaultEmulator.Keys.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -22,7 +23,8 @@ namespace AzureKeyVaultEmulator.Keys.Controllers
         [Produces("application/json")]
         [Consumes("application/json")]
         [ProducesResponseType(typeof(KeyResponse), StatusCodes.Status200OK)]
-        public IActionResult CreateKey([FromRoute] string name,
+        public IActionResult CreateKey(
+            [RegularExpression("[a-zA-Z0-9-]+")][FromRoute] string name,
             [FromQuery(Name = "api-version")] string apiVersion,
             [FromBody] CreateKeyModel requestBody)
         {
@@ -34,7 +36,8 @@ namespace AzureKeyVaultEmulator.Keys.Controllers
         [HttpGet("{version}")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(KeyResponse), StatusCodes.Status200OK)]
-        public IActionResult GetKey([FromRoute] string name,
+        public IActionResult GetKey(
+            [FromRoute] string name,
             [FromRoute] string version,
             [FromQuery(Name = "api-version")] string apiVersion)
         {
