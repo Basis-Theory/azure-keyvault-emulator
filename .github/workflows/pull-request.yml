@@ -16,10 +16,5 @@ jobs:
         with:
           dotnet-version: 5.0.x
 
-      - name: Trust Certificate
-        run: |
-          sudo cp -r ./local-certs/. /usr/local/share/ca-certificates/.
-          sudo update-ca-certificates
-
       - name: Verify
         run: make verify

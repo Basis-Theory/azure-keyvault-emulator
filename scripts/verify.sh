@@ -9,6 +9,7 @@ cd $(dirname $0)
 
 time {
     ./dependencycheck.sh
+    ./importcert.sh
     ./stopdocker.sh
     ./build.sh
     ./startdocker.sh

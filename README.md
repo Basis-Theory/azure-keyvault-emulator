@@ -1,17 +1,25 @@
 # Azure KeyVault Emulator
 
-### Supported Operations
+## Supported Operations
+
+### Keys
 
 #### RSA
 
 - Create Key
-- Get Key by version
+- Get Key
+- Get Key by Version
 - Encrypt
 - Decrypt
 - Supported [Algorithms](https://docs.microsoft.com/en-us/rest/api/keyvault/decrypt/decrypt#jsonwebkeyencryptionalgorithm)
     - `RSA1_5`
     - `RSA-OAEP`
 
+### Secrets
+
+- Set
+- Get Secret
+- Get Secret by Version
 
 ### Requirements
 
@@ -86,4 +94,21 @@ services:
       - <path-to-certs>:/https
     environment:
       - KeyVault__BaseUrl=https://azure-key-vault-emulator:5001/
+```
+
+## Development
+
+The provided scripts will check for all dependencies, start docker, build the solution, and run all tests.
+
+### Dependencies
+- [Docker](https://www.docker.com/products/docker-desktop)
+- [Docker Compose](https://www.docker.com/products/docker-desktop)
+- [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
+
+### Build the SDK and run Tests
+
+Run the following command from the root of the project:
+
+```sh
+make verify
 ```

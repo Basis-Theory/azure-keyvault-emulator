@@ -12,16 +12,19 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.SEMANTIC_RELEASE_PAT }}
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 5.0.x
 
-      - name: Trust Certificate
-        run: |
-          sudo cp -r ./local-certs/. /usr/local/share/ca-certificates/.
-          sudo update-ca-certificates
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+          cache: 'yarn'
 
       - name: Verify
         run: make verify
@@ -40,9 +43,17 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish Image
-        run: |
-          docker image tag azure-key-vault-emulator ghcr.io/basis-theory/azure-key-vault-emulator:latest
-          docker image tag azure-key-vault-emulator ghcr.io/basis-theory/azure-key-vault-emulator:${{ steps.bump_version.outputs.new_tag }}
-          docker push ghcr.io/basis-theory/azure-key-vault-emulator:latest
-          docker push ghcr.io/basis-theory/azure-key-vault-emulator:${{ steps.bump_version.outputs.new_tag }}
+      - name: Release
+        run: make release
+        env:
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_PAT }}
+
+      - name: Slack Release Alert
+        uses: 8398a7/action-slack@v3
+        if: always()
+        with:
+          status: ${{ job.status }}
+          channel: ${{ secrets.SLACK_RELEASE_CHANNEL_ID }}
+          fields: 'repo,commit,message,workflow,job'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}

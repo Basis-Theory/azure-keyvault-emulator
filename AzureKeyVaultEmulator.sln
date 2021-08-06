@@ -12,6 +12,10 @@ ProjectSection(SolutionItems) = preProject
 	.dockerignore = .dockerignore
 	Dockerfile = Dockerfile
 	docker-compose.yml = docker-compose.yml
+	.releaserc.json = .releaserc.json
+	CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
+	LICENSE = LICENSE
+	package.json = package.json
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{EEEEDF54-ADE9-447E-8ED7-36A9E3CC0FD0}"
@@ -25,6 +29,10 @@ ProjectSection(SolutionItems) = preProject
 	scripts\stopdocker.sh = scripts\stopdocker.sh
 	scripts\stopservice.sh = scripts\stopservice.sh
 	scripts\verify.sh = scripts\verify.sh
+	scripts\tag-image.sh = scripts\tag-image.sh
+	scripts\publish-image.sh = scripts\publish-image.sh
+	scripts\release.sh = scripts\release.sh
+	scripts\importcert.sh = scripts\importcert.sh
 EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Pipeline", "Pipeline", "{B4453CBE-DBCF-4CBF-B6DC-B951DA62668A}"
@@ -32,6 +40,9 @@ ProjectSection(SolutionItems) = preProject
 	.github\workflows\pull-request.yml = .github\workflows\pull-request.yml
 	.github\workflows\verify.yml = .github\workflows\verify.yml
 	.github\dependabot.yml = .github\dependabot.yml
+	.github\CODEOWNERS = .github\CODEOWNERS
+	.github\ISSUE_TEMPLATE.md = .github\ISSUE_TEMPLATE.md
+	.github\PULL_REQUEST_TEMPLATE.md = .github\PULL_REQUEST_TEMPLATE.md
 EndProjectSection
 EndProject
 Global
