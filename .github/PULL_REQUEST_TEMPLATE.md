@@ -3,7 +3,7 @@
 
 -
 
-<!-- Please describe in detail how teammates can test your changes. -->
+<!-- Please describe in detail how maintainers can test your changes. -->
 ## Testing required outside of automated testing?
 
 - [ ] Not Applicable
