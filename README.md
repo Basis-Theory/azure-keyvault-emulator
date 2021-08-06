@@ -105,7 +105,7 @@ The provided scripts will check for all dependencies, start docker, build the so
 - [Docker Compose](https://www.docker.com/products/docker-desktop)
 - [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
 
-### Build the SDK and run Tests
+### Build the KeyVault emulator and run Tests
 
 Run the following command from the root of the project:
 
