@@ -1,6 +1,6 @@
 {
   "name": "basistheory-azure-keyvault-emulator",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Basis Theory Azure KeyVault Emulator",
   "repository": "https://github.com/Basis-Theory/azure-keyvault-emulator",
   "author": "Basis Theory",
