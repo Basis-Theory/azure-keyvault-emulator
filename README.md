@@ -32,69 +32,78 @@ For accessing the emulator with a hostname other than `localhost`, a self-signed
 
 For the Azure KeyVault Emulator to be accessible from other containers in the same compose file, a new OpenSSL certificate has to be generated:
 1. Replace `<emulator-hostname>` and run the following script to generate a new public/private keypair:
-```
-openssl req \
--x509 \
--newkey rsa:4096 \
--sha256 \
--days 3560 \
--nodes \
--keyout <emulator-hostname>.key \
--out <emulator-hostname>.crt \
--subj '/CN=<emulator-hostname>' \
--extensions san \
--config <( \
-  echo '[req]'; \
-  echo 'distinguished_name=req'; \
-  echo '[san]'; \
-  echo 'subjectAltName=DNS.1:localhost,DNS.2:<emulator-hostname>')
-```
+
+    ```
+    openssl req \
+    -x509 \
+    -newkey rsa:4096 \
+    -sha256 \
+    -days 3560 \
+    -nodes \
+    -keyout <emulator-hostname>.key \
+    -out <emulator-hostname>.crt \
+    -subj '/CN=<emulator-hostname>' \
+    -extensions san \
+    -config <( \
+      echo '[req]'; \
+      echo 'distinguished_name=req'; \
+      echo '[san]'; \
+      echo 'subjectAltName=DNS.1:localhost,DNS.2:<emulator-hostname>')
+    ```
+
 1. Export a `.pks` formatted key using the public/private keypair generated in the previous step:
-```
-openssl pkcs12 -export -out <emulator-hostname>.pfx \
--inkey <emulator-hostname>.key \
--in <emulator-hostname>.crt
-```
+
+    ```
+    openssl pkcs12 -export -out <emulator-hostname>.pfx \
+    -inkey <emulator-hostname>.key \
+    -in <emulator-hostname>.crt
+    ```
+
 1. Trust the certificate in the login keychain
-```
-sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <emulator-hostname>.crt
-```
-1. Add a service to docker-compose.yml for Azure KeyVaultEmulator:
-```
-version: '3.7'
 
-services:
-  ...
-    azure-key-vault-emulator:
-    container_name: azure-key-vault-emulator
-    image: ghcr.io/basis-theory/azure-key-vault-emulator:latest
-    ports:
-      - 5001:5001
-      - 5000:5000
-    volumes:
-      - <path-to-certs>:/https
-    environment:
-      - ASPNETCORE_URLS=https://+:5001;http://+:5000
-      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/<emulator-hostname>.pfx
-      - KeyVault__Name=<emulator-hostname>
-```
+    ```
+    sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain <emulator-hostname>.crt
+    ```
+
+1. Add a service to docker-compose.yml for Azure KeyVault Emulator:
+
+    ```
+    version: '3.7'
+    
+    services:
+      ...
+        azure-keyvault-emulator:
+        container_name: azure-keyvault-emulator
+        image: basis-theory/azure-keyvault-emulator:latest
+        ports:
+          - 5001:5001
+          - 5000:5000
+        volumes:
+          - <path-to-certs>:/https
+        environment:
+          - ASPNETCORE_URLS=https://+:5001;http://+:5000
+          - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/<emulator-hostname>.pfx
+          - KeyVault__Name=<emulator-hostname>
+    ```
+
 1. Modify the client application's entrypoint to add the self-signed certificate to the truststore. Example using docker-compose.yml to override the entrypoint:
-```
-version: '3.7'
 
-services:
-  my-awesome-key-vault-client:
-    container_name: my-awesome-client
-    build:
-      context: .
-    depends_on:
-      - azure-key-vault-emulator
-    entrypoint: sh -c "cp /https/<emulator-hostname>.crt /usr/local/share/ca-certificates/<emulator-hostname>.crt && update-ca-certificates && exec <original-entrypoint>"
-    volumes:
-      - <path-to-certs>:/https
-    environment:
-      - KeyVault__BaseUrl=https://azure-key-vault-emulator:5001/
-```
+    ```
+    version: '3.7'
+    
+    services:
+      my-awesome-keyvault-client:
+        container_name: my-awesome-client
+        build:
+          context: .
+        depends_on:
+          - azure-keyvault-emulator
+        entrypoint: sh -c "cp /https/<emulator-hostname>.crt /usr/local/share/ca-certificates/<emulator-hostname>.crt && update-ca-certificates && exec <original-entrypoint>"
+        volumes:
+          - <path-to-certs>:/https
+        environment:
+          - KeyVault__BaseUrl=https://azure-keyvault-emulator:5001/
+    ```
 
 ## Development
 
