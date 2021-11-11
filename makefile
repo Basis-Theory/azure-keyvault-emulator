@@ -3,12 +3,6 @@ MAKEFLAGS += --silent
 verify:
 	docker-compose pull && ./scripts/verify.sh
 
-start-local:
-	docker-compose pull && ./scripts/startlocal.sh
-
-build:
-	./scripts/build.sh
-
 acceptance-test:
 	./scripts/acceptancetest.sh
 
