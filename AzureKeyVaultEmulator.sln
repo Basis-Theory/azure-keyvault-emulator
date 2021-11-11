@@ -28,8 +28,6 @@ ProjectSection(SolutionItems) = preProject
 	scripts\stopdocker.sh = scripts\stopdocker.sh
 	scripts\stopservice.sh = scripts\stopservice.sh
 	scripts\verify.sh = scripts\verify.sh
-	scripts\tag-image.sh = scripts\tag-image.sh
-	scripts\publish-image.sh = scripts\publish-image.sh
 	scripts\release.sh = scripts\release.sh
 	scripts\importcert.sh = scripts\importcert.sh
 EndProjectSection
