@@ -11,7 +11,6 @@ time {
     ./dependencycheck.sh
     ./importcert.sh
     ./stopdocker.sh
-    ./build.sh
     ./startdocker.sh
     ./serviceup.sh
     ./acceptancetest.sh

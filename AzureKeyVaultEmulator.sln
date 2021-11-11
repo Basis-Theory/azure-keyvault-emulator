@@ -22,11 +22,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{EEEEDF54-ADE9-447E-8ED7-36A9E3CC0FD0}"
 ProjectSection(SolutionItems) = preProject
 	scripts\acceptancetest.sh = scripts\acceptancetest.sh
-	scripts\build.sh = scripts\build.sh
 	scripts\dependencycheck.sh = scripts\dependencycheck.sh
 	scripts\serviceup.sh = scripts\serviceup.sh
 	scripts\startdocker.sh = scripts\startdocker.sh
-	scripts\startlocal.sh = scripts\startlocal.sh
 	scripts\stopdocker.sh = scripts\stopdocker.sh
 	scripts\stopservice.sh = scripts\stopservice.sh
 	scripts\verify.sh = scripts\verify.sh
@@ -46,6 +44,13 @@ ProjectSection(SolutionItems) = preProject
 	.github\PULL_REQUEST_TEMPLATE.md = .github\PULL_REQUEST_TEMPLATE.md
 EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Checks", "Checks", "{9D107928-7669-4B0C-9291-F5318F9F334B}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\checks\dockercheck.sh = scripts\checks\dockercheck.sh
+		scripts\checks\dockercomposecheck.sh = scripts\checks\dockercomposecheck.sh
+		scripts\checks\dotnetcheck.sh = scripts\checks\dotnetcheck.sh
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,5 +65,8 @@ Global
 		{181CD468-BBCA-424A-97A7-5ACC8331FE5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{181CD468-BBCA-424A-97A7-5ACC8331FE5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{181CD468-BBCA-424A-97A7-5ACC8331FE5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9D107928-7669-4B0C-9291-F5318F9F334B} = {EEEEDF54-ADE9-447E-8ED7-36A9E3CC0FD0}
 	EndGlobalSection
 EndGlobal

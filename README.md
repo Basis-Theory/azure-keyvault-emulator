@@ -73,7 +73,7 @@ For the Azure KeyVault Emulator to be accessible from other containers in the sa
 1. Add a service to docker-compose.yml for Azure KeyVault Emulator:
 
     ```
-    version: '3.7'
+    version: '3.9'
     
     services:
       ...
@@ -94,7 +94,7 @@ For the Azure KeyVault Emulator to be accessible from other containers in the sa
 1. Modify the client application's entrypoint to add the self-signed certificate to the truststore. Example using docker-compose.yml to override the entrypoint:
 
     ```
-    version: '3.7'
+    version: '3.9'
     
     services:
       my-awesome-keyvault-client:
@@ -117,7 +117,7 @@ The provided scripts will check for all dependencies, start docker, build the so
 ### Dependencies
 - [Docker](https://www.docker.com/products/docker-desktop)
 - [Docker Compose](https://www.docker.com/products/docker-desktop)
-- [.NET 5](https://dotnet.microsoft.com/download/dotnet/5.0)
+- [.NET 6](https://dotnet.microsoft.com/download/dotnet/6.0)
 
 ### Build the KeyVault emulator and run Tests
 

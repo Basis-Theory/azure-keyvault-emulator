@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS builder
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS builder
 WORKDIR /app
 
 COPY *.sln .
@@ -8,12 +8,11 @@ RUN for file in $(ls *.csproj); do mkdir -p ./${file%.*}/ && mv $file ./${file%.
 RUN dotnet restore
 
 COPY . .
-RUN dotnet build AzureKeyVaultEmulator.sln --no-restore -c Release
-RUN dotnet publish AzureKeyVaultEmulator/AzureKeyVaultEmulator.csproj -c Release -o publish --no-restore --no-build
+RUN dotnet publish AzureKeyVaultEmulator/AzureKeyVaultEmulator.csproj -c Release -o publish --no-restore
 
 ########################################
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 WORKDIR /app
 
 RUN apk add --no-cache icu-libs tzdata
