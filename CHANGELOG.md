@@ -1,3 +1,11 @@
+## [1.1.1](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.1.0...v1.1.1) (2021-11-11)
+
+
+### Bug Fixes
+
+* publish linux/amd64 and linux/arm64 image platforms ([#49](https://github.com/Basis-Theory/azure-keyvault-emulator/issues/49)) ([28dd42e](https://github.com/Basis-Theory/azure-keyvault-emulator/commit/28dd42e9e54ecaf01d3dab1eef5fead4261f27a1))
+* publish multi-platfrom docker image with docker build-push-action ([#50](https://github.com/Basis-Theory/azure-keyvault-emulator/issues/50)) ([838168e](https://github.com/Basis-Theory/azure-keyvault-emulator/commit/838168e98fd8df4695447add71e8dbe97237a6db))
+
 # [1.1.0](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.0.0...v1.1.0) (2021-11-11)
 
 
