@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.1.1...v1.1.2) (2022-03-28)
+
+
+### Bug Fixes
+
+* **deps:** bump minimist from 1.2.5 to 1.2.6 ([#66](https://github.com/Basis-Theory/azure-keyvault-emulator/issues/66)) ([926fb11](https://github.com/Basis-Theory/azure-keyvault-emulator/commit/926fb115d149cf670c0be34540c4a704f6d04f73))
+
 ## [1.1.1](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.1.0...v1.1.1) (2021-11-11)
 
 
