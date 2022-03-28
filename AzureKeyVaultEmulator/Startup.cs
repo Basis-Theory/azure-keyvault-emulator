@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AzureKeyVaultEmulator.Keys.Services;
 using AzureKeyVaultEmulator.Secrets.Services;
@@ -27,7 +28,7 @@ namespace AzureKeyVaultEmulator
             services.AddControllers()
                 .AddJsonOptions(o =>
                 {
-                    o.JsonSerializerOptions.IgnoreNullValues = true;
+                    o.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
                 });
 
             services.AddSwaggerGen(c =>
@@ -63,7 +64,7 @@ namespace AzureKeyVaultEmulator
                         OnChallenge = context =>
                         {
                             context.Response.Headers.Remove("WWW-Authenticate");
-                            context.Response.Headers["WWW-Authenticate"] = "Bearer authorization=\"localhost:5001\", scope=\"foobar\", resource=\"https://some.url\"";
+                            context.Response.Headers["WWW-Authenticate"] = "Bearer authorization=\"https://localhost:5001/foo/bar\", scope=\"foobar\", resource=\"https://some.url\"";
                             return Task.CompletedTask;
                         }
                     };
