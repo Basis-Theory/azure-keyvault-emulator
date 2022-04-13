@@ -26,14 +26,29 @@ The [Basis Theory](https://basistheory.com/) Azure KeyVault Emulator to mock int
 - Get Secret
 - Get Secret by Version
 
-### Requirements
+## Requirements
 
-Azure's KeyClient requires HTTPS communication with a KeyVault instance.
+### HTTPS
+
+Azure KeyClient and SecretClient require HTTPS communication with a KeyVault instance.
 When accessing the emulator on `localhost`, configure a trusted TLS certificate with [dotnet dev-certs](https://docs.microsoft.com/en-us/dotnet/core/additional-tools/self-signed-certificates-guide#with-dotnet-dev-certs).
 
 For accessing the emulator with a hostname other than `localhost`, a self-signed certificate needs to be generated and trusted by the client. See [Adding to docker-compose](#adding-to-docker-compose) for further instructions.
 
-### Adding to docker-compose
+### AuthN/AuthZ
+
+Azure KeyClient and SecretClient use a [ChallengeBasedAuthenticationPolicy](https://github.com/Azure/azure-sdk-for-net/blob/b30fa6d0d402511fdf3270c5d1d9ae5dfa2a0340/sdk/keyvault/Azure.Security.KeyVault.Shared/src/ChallengeBasedAuthenticationPolicy.cs#L64-L66)
+to determine the authentication scheme used by the server. In order for the KeyVault Emulator to work with the Azure SDK, the emulator requires JWT authentication in the `Authorization` header with `Bearer` prefix.
+KeyVault Emulator only validates the JWT is well-formed.
+
+```shell
+curl -X 'GET' \
+  'https://localhost:5551/secrets/foo' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyLCJleHAiOjE4OTAyMzkwMjIsImlzcyI6Imh0dHBzOi8vbG9jYWxob3N0OjUwMDEvIn0.bHLeGTRqjJrmIJbErE-1Azs724E5ibzvrIc-UQL6pws'
+```
+
+## Adding to docker-compose
 
 For the Azure KeyVault Emulator to be accessible from other containers in the same compose file, a new OpenSSL certificate has to be generated:
 1. Replace `<emulator-hostname>` and run the following script to generate a new public/private keypair:
