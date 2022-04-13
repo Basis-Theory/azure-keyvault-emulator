@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.1.2...v1.1.3) (2022-04-13)
+
+
+### Bug Fixes
+
+* add security requirements to swagger and document Auth requirements ([#71](https://github.com/Basis-Theory/azure-keyvault-emulator/issues/71)) ([ecd25d1](https://github.com/Basis-Theory/azure-keyvault-emulator/commit/ecd25d1d3d2407105d2cff8f7eb00201eeaa2c1b))
+
 ## [1.1.2](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.1.1...v1.1.2) (2022-03-28)
 
 
