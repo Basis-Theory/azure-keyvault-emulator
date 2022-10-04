@@ -18,6 +18,10 @@ jobs:
         with:
           dotnet-version: 6.0.x
 
+      - name: Add hosts to /etc/hosts
+        run: |
+          echo "127.0.0.1 localhost.vault.azure.net" | sudo tee -a /etc/hosts
+
       - name: Verify
         run: make verify
 

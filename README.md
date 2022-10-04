@@ -68,7 +68,7 @@ For the Azure KeyVault Emulator to be accessible from other containers in the sa
       echo '[req]'; \
       echo 'distinguished_name=req'; \
       echo '[san]'; \
-      echo 'subjectAltName=DNS.1:localhost,DNS.2:a<emulator-hostname>,DNS.3:localhost.vault.azure.net,DNS.4:<emulator-hostname>.vault.azure.net')
+      echo 'subjectAltName=DNS.1:localhost,DNS.2:<emulator-hostname>,DNS.3:localhost.vault.azure.net,DNS.4:<emulator-hostname>.vault.azure.net')
     ```
 
 1. Export a `.pks` formatted key using the public/private keypair generated in the previous step:
