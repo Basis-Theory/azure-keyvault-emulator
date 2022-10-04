@@ -5,7 +5,7 @@ current_directory="$PWD"
 
 cd $(dirname $0)/..
 
-docker stop azure-key-vault-emulator
+docker stop keyvault-emulator
 
 result=$?
 
