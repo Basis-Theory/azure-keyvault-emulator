@@ -83,7 +83,7 @@ namespace AzureKeyVaultEmulator
                         OnChallenge = context =>
                         {
                             context.Response.Headers.Remove("WWW-Authenticate");
-                            context.Response.Headers["WWW-Authenticate"] = "Bearer authorization=\"https://localhost:5001/foo/bar\", scope=\"foobar\", resource=\"https://some.url\"";
+                            context.Response.Headers["WWW-Authenticate"] = $"Bearer authorization=\"https://localhost:5001/foo/bar\", scope=\"foobar\", resource=\"https://vault.azure.net\"";
                             return Task.CompletedTask;
                         }
                     };

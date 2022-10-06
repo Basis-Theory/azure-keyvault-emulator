@@ -68,7 +68,7 @@ For the Azure KeyVault Emulator to be accessible from other containers in the sa
       echo '[req]'; \
       echo 'distinguished_name=req'; \
       echo '[san]'; \
-      echo 'subjectAltName=DNS.1:localhost,DNS.2:<emulator-hostname>')
+      echo 'subjectAltName=DNS.1:localhost,DNS.2:<emulator-hostname>,DNS.3:localhost.vault.azure.net,DNS.4:<emulator-hostname>.vault.azure.net')
     ```
 
 1. Export a `.pks` formatted key using the public/private keypair generated in the previous step:
@@ -92,9 +92,9 @@ For the Azure KeyVault Emulator to be accessible from other containers in the sa
     
     services:
       ...
-        azure-keyvault-emulator:
-        container_name: azure-keyvault-emulator
+      azure-keyvault-emulator:
         image: basis-theory/azure-keyvault-emulator:latest
+        hostname: <emulator-hostname>.vault.azure.net
         ports:
           - 5001:5001
           - 5000:5000
@@ -122,8 +122,22 @@ For the Azure KeyVault Emulator to be accessible from other containers in the sa
         volumes:
           - <path-to-certs>:/https
         environment:
-          - KeyVault__BaseUrl=https://azure-keyvault-emulator:5001/
+          - KeyVault__BaseUrl=https://<emulator-hostname>.vault.azure.net:5001/
     ```
+
+1. (Optional) Azure KeyVault SDKs verify the challenge resource URL as of v4.4.0 (read more [here](https://devblogs.microsoft.com/azure-sdk/guidance-for-applications-using-the-key-vault-libraries/)). 
+To satisfy the new challenge resource verification requirements, do one of the following:
+   1. Use an emulator hostname that ends with `.vault.azure.net` (e.g. `localhost.vault.azure.net`). A new entry may need to be added to `/etc/hosts` to properly resolve DNS (i.e. `127.0.0.1 localhost.vault.azure.net`).
+   1. Set `DisableChallengeResourceVerification` to true in your client options to disable verification.
+```csharp
+var client = new SecretClient(
+    new Uri("https://localhost.vault.azure.net:5551/"), 
+    new LocalTokenCredential(), 
+    new SecretClientOptions
+    {
+        DisableChallengeResourceVerification = true
+    });
+```
 
 ## Development
 

@@ -12,7 +12,12 @@ namespace AzureKeyVaultEmulator.AcceptanceTests.Secrets
 
         public CreateSecretTests()
         {
-            _secretClient = new SecretClient(new Uri("https://localhost:5551/"), new LocalTokenCredential());
+            _secretClient = new SecretClient(new Uri("https://localhost.vault.azure.net:5551/"),
+                new LocalTokenCredential(),
+                new SecretClientOptions
+                {
+                    DisableChallengeResourceVerification = true
+                });
         }
 
         [Fact]
@@ -42,8 +47,10 @@ namespace AzureKeyVaultEmulator.AcceptanceTests.Secrets
             Assert.NotNull(createdSecret.Id);
             Assert.Equal(secret.Value, createdSecret.Value);
             Assert.Equal(secret.Properties.Enabled, createdSecret.Properties.Enabled);
-            Assert.Equal(secret.Properties.ExpiresOn.Value.ToUnixTimeSeconds(), createdSecret.Properties.ExpiresOn.GetValueOrDefault().ToUnixTimeSeconds());
-            Assert.Equal(secret.Properties.NotBefore.Value.ToUnixTimeSeconds(), createdSecret.Properties.NotBefore.GetValueOrDefault().ToUnixTimeSeconds());
+            Assert.Equal(secret.Properties.ExpiresOn.Value.ToUnixTimeSeconds(),
+                createdSecret.Properties.ExpiresOn.GetValueOrDefault().ToUnixTimeSeconds());
+            Assert.Equal(secret.Properties.NotBefore.Value.ToUnixTimeSeconds(),
+                createdSecret.Properties.NotBefore.GetValueOrDefault().ToUnixTimeSeconds());
             Assert.NotNull(createdSecret.Properties.Version);
             Assert.Equal("local", createdSecret.Properties.Tags["environment"]);
             Assert.Equal("true", createdSecret.Properties.Tags["testing"]);
