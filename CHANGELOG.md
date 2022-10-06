@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.1.3...v1.2.0) (2022-10-06)
+
+
+### Features
+
+* upgrade deps and use valid keyvault domains ([#100](https://github.com/Basis-Theory/azure-keyvault-emulator/issues/100)) ([edc500b](https://github.com/Basis-Theory/azure-keyvault-emulator/commit/edc500be969ba564ec06735aadb026205d7dc8ff))
+
 ## [1.1.3](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.1.2...v1.1.3) (2022-04-13)
 
 
