@@ -1,7 +1,7 @@
 MAKEFLAGS += --silent
 
 verify:
-	docker-compose pull && ./scripts/verify.sh
+	./scripts/verify.sh
 
 acceptance-test:
 	./scripts/acceptancetest.sh

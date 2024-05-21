@@ -2,7 +2,7 @@
 
 echo "Checking Docker Compose..."
 
-EXPECTED_COMPOSE_REGEX=1\.[1,2][0-9]\.[0-9]+
+EXPECTED_COMPOSE_REGEX=^[1-9][0-9]*\.[0-9]+\.[0-9]+
 DISPLAY_COMPOSE_REGEX=$(sed -e 's|\\\([.+?*()]\)|\1|g' -e 's|[.+?]\*|*|g' <<<${EXPECTED_COMPOSE_REGEX})
 
 version=$(docker-compose version --short 2>&1)
