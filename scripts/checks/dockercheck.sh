@@ -2,8 +2,7 @@
 
 echo "Checking Docker..."
 
-EXPECTED_DOCKER="(18|19|20)\.[0-9]+\.[0-9]*"
-DISPLAY_DOCKER_REGEX=$(sed -e 's|\\\([.+?*()]\)|\1|g' -e 's|[.+?]\*|*|g' <<<${EXPECTED_DOCKER})
+EXPECTED_DOCKER="^[1-9][0-9]+\.[0-9]+\.[0-9]*"
 version=$(docker version --format '{{.Client.Version}}' 2>&1)
 
 if [[ $version == *"docker.sock"* ]]; then
@@ -15,6 +14,6 @@ fi
 if [[ "$version" =~ $EXPECTED_DOCKER ]]; then
     echo "Docker is OK"
 else
-    echo "Please Install Docker $DISPLAY_DOCKER_REGEX via Docker Desktop; https://www.docker.com/products/docker-desktop"
+    echo "Please Install Docker via Docker Desktop; https://www.docker.com/products/docker-desktop"
     exit 1
 fi

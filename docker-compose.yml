@@ -10,7 +10,7 @@ services:
       - 5551:5551
       - 5550:5550
     volumes:
-      - $PWD/local-certs:/https
+      - $PWD/local-certs:/https:ro
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:5551
