@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.2.0...v1.2.1) (2024-05-21)
+
+
+### Bug Fixes
+
+* use scope provided in the request context ([0b8e733](https://github.com/Basis-Theory/azure-keyvault-emulator/commit/0b8e733524226e2b626c31872e49c0d5144a318c))
+
 # [1.2.0](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.1.3...v1.2.0) (2022-10-06)
 
 
