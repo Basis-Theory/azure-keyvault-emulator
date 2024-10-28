@@ -5,7 +5,7 @@ current_directory="$PWD"
 
 cd $(dirname $0)/..
 
-docker-compose down
+docker compose down
 
 result=$?
 
