@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.2.1...v1.3.0) (2024-10-29)
+
+
+### Features
+
+* update secrets and workflows ([#147](https://github.com/Basis-Theory/azure-keyvault-emulator/issues/147)) ([e2a1edd](https://github.com/Basis-Theory/azure-keyvault-emulator/commit/e2a1edd23b9edf2482a1ecc89d8317d517306ef9))
+
 ## [1.2.1](https://github.com/Basis-Theory/azure-keyvault-emulator/compare/v1.2.0...v1.2.1) (2024-05-21)
 
 
