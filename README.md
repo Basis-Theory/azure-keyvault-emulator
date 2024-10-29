@@ -1,4 +1,7 @@
-# Azure KeyVault Emulator
+# DEPRECATION NOTICE
+As of `10/29/2024` Basis Theory is no longer maintaining this repository.
+
+## Azure KeyVault Emulator
 
 [![Version](https://img.shields.io/docker/pulls/basistheory/azure-keyvault-emulator.svg)](https://hub.docker.com/r/basistheory/azure-keyvault-emulator)
 [![Verify](https://github.com/Basis-Theory/azure-keyvault-emulator/actions/workflows/verify.yml/badge.svg)](https://github.com/Basis-Theory/azure-keyvault-emulator/actions/workflows/verify.yml)
