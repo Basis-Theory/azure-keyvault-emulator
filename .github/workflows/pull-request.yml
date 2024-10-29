@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    environment: PR
     runs-on: ubuntu-latest
 
     steps:
